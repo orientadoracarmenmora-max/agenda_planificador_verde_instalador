@@ -1,0 +1,16 @@
+MI AGENDA VERDE Y MORADA · VERSIÓN INSTALABLE
+
+PUBLICAR
+Descomprime el ZIP y sube su contenido a la raíz del repositorio elegido, incluyendo la carpeta assets. index.html debe quedar en la raíz. En Settings > Pages elige main y / (root).
+
+INSTALAR
+Abre el enlace HTTPS de GitHub Pages y pulsa Instalar, o usa la opción del navegador. Al abrir como aplicación no aparece el botón Instalar. La primera apertura necesita conexión.
+
+FUNCIONES
+Incluye Calendario mensual, Planificador semanal y Mi día, los botones Guardar, Cargar, Guardar PDF e Imprimir, barra de desplazamiento derecha y guardado automático.
+
+DATOS
+Guardar descarga una copia JSON; Cargar la recupera. Guarda una copia antes de actualizar. Una dirección nueva tiene su propio guardado: importa allí tu copia. No borres datos del navegador. Los datos no se sincronizan entre dispositivos.
+
+ACTUALIZAR
+Abre con conexión y pulsa Actualizar si aparece. El icono instalado puede tardar en renovarse.

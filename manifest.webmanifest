@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "Mi agenda verde y morada · Carmen Mora",
+  "short_name": "Mi agenda",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fafbf6",
+  "theme_color": "#758346",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192-verde-morado.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512-verde-morado.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
