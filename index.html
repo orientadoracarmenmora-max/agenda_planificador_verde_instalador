@@ -317,6 +317,7 @@ label[for=task-start],label[for=task-end]{height:3em!important;min-height:3em!im
 .weekly-board-tools label{display:inline-flex;align-items:center;gap:5px;font-size:13px}
 .weekly-board-tools label[hidden]{display:none}
 .weekly-board-tools select,.weekly-board-tools input{min-height:36px;border:1px solid #afbea9;border-radius:8px;background:#fff;color:#413849;padding:4px 6px;font:inherit}
+.weekly-board-tools input[type="range"]{width:clamp(90px,20vw,160px);padding:0;border:0;background:transparent;accent-color:#91647a;cursor:pointer}
 .weekly-board-tools input[type="color"]{width:44px;cursor:pointer}
 .weekly-board .action{min-height:34px;padding:5px 10px;font-size:13px}
 .weekly-board [aria-pressed="true"]{background:#61713d;color:#fff}
@@ -330,8 +331,11 @@ label[for=task-start],label[for=task-end]{height:3em!important;min-height:3em!im
 .weekly-board-palette{position:absolute;z-index:3;top:100%;left:0;width:min(250px,85vw);padding:10px;background:white;border:1px solid #afbea9;border-radius:10px;box-shadow:0 4px 12px #0002;display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:6px 0 12px}
 .weekly-board-palette[hidden]{display:none}
 .weekly-board-palette>span{font-size:13px;font-weight:700;margin-right:3px}
-.weekly-board-palette .board-swatch{width:31px;height:31px;padding:0;border-radius:50%;border:1px solid #0002;background:var(--swatch);cursor:pointer;flex:none}
-.weekly-board-palette .board-swatch[aria-pressed="true"]{background:var(--swatch);outline:2px solid #413849;outline-offset:2px}
+.weekly-board .board-icon{display:grid;place-items:center;width:38px;min-height:38px;padding:0;border-radius:50%}
+.weekly-board .board-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.weekly-board-palette .board-swatch{position:relative;width:36px;height:44px;padding:0;border-radius:8px;border:1px solid #e2d3d0;background:#fff;cursor:pointer;flex:none}
+.weekly-board-palette .board-swatch::before{content:"";position:absolute;inset:4px 9px 3px;clip-path:polygon(50% 0,100% 44%,100% 100%,0 100%,0 44%);background:linear-gradient(to bottom,var(--swatch) 0 18%,#dbbd9d 18% 44%,var(--swatch) 44% 100%)}
+.weekly-board-palette .board-swatch[aria-pressed="true"],.weekly-board-palette .board-swatch:focus-visible{outline:2px solid #413849;outline-offset:2px}
 .weekly-board-palette label{display:inline-flex;align-items:center;gap:4px;font-size:12px}
 .weekly-board-palette input{width:32px;height:31px;padding:2px;border:1px solid #afbea9;border-radius:6px;background:white;cursor:pointer}
 .weekly-board p:empty{display:none}
@@ -592,11 +596,10 @@ const overlay=document.getElementById(&#x27;event-overlay&#x27;);if(overlay){con
 </div><section id="weekly-board" class="weekly-board print-hide" aria-labelledby="weekly-board-title">
 <h4 id="weekly-board-title">Pizarra libre</h4>
 <div class="weekly-board-tools"><div class="weekly-board-buttons" role="group" aria-label="Herramientas de la pizarra">
-<button type="button" class="action secondary" data-board-mode="pen" aria-pressed="false">Bolígrafo</button>
-<button type="button" class="action secondary" data-board-mode="highlight" aria-pressed="false">Subrayador</button>
-<button type="button" class="action secondary" data-board-mode="eraser" aria-pressed="false">Goma</button>
-<button type="button" class="action secondary" data-board-mode="sticker" aria-pressed="false">Pegatina</button>
-</div><label data-board-sticker-label hidden>Pegatina <select data-board-sticker><option value="⭐">⭐ Estrella</option><option value="💗">💗 Corazón</option><option value="🌸">🌸 Flor</option><option value="✅">✅ Hecho</option><option value="📌">📌 Chincheta</option><option value="⚡">⚡ Rayo</option></select></label><details class="weekly-board-colors" data-board-color-label><summary>Color <span data-board-color-dot aria-hidden="true"></span></summary><div class="weekly-board-palette" role="group" aria-label="Colores de la pizarra"><button type="button" class="board-swatch" data-board-swatch="#413849" style="--swatch:#413849" aria-label="Topo" aria-pressed="true"></button><button type="button" class="board-swatch" data-board-swatch="#647c60" style="--swatch:#647c60" aria-label="Rosa" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#8e6aaf" style="--swatch:#8e6aaf" aria-label="Rojo" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#79a960" style="--swatch:#79a960" aria-label="Naranja" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#6a9751" style="--swatch:#6a9751" aria-label="Amarillo" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#6d8a6d" style="--swatch:#6d8a6d" aria-label="Verde" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#5b8887" style="--swatch:#5b8887" aria-label="Turquesa" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#667ca5" style="--swatch:#667ca5" aria-label="Azul" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#8b6d9b" style="--swatch:#8b6d9b" aria-label="Violeta" aria-pressed="false"></button><label>Otro color <input type="color" aria-label="Otro color" data-board-color value="#413849"></label></div></details><label data-board-width-label>Grosor <select data-board-width><option value="0.6">Fino</option><option value="1" selected>Medio</option><option value="1.6">Grueso</option></select></label><button type="button" class="action secondary" data-board-undo disabled>Deshacer</button><button type="button" class="action secondary" data-board-clear disabled>Borrar todo</button></div>
+<button type="button" class="action secondary board-icon" data-board-mode="pen" aria-pressed="false" aria-label="Bolígrafo" title="Bolígrafo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 1-5L16 4l4 4L9 19zM13 7l4 4"/></svg></button>
+<button type="button" class="action secondary board-icon" data-board-mode="highlight" aria-pressed="false" aria-label="Subrayador" title="Subrayador"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 9-9 5 5-9 9H5zM10 9l5 5M4 21h16"/></svg></button>
+<button type="button" class="action secondary board-icon" data-board-mode="eraser" aria-pressed="false" aria-label="Goma" title="Goma"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 13 8-8a2 2 0 0 1 3 0l4 4a2 2 0 0 1 0 3l-7 7H8l-4-4a1.4 1.4 0 0 1 0-2ZM8 9l8 8m-4 2h8"/></svg></button>
+</div><details class="weekly-board-colors" data-board-color-label><summary>Colores <span data-board-color-dot aria-hidden="true"></span></summary><div class="weekly-board-palette" role="group" aria-label="Colores de la pizarra"><button type="button" class="board-swatch" data-board-swatch="#413849" style="--swatch:#413849" aria-label="Topo" aria-pressed="true"></button><button type="button" class="board-swatch" data-board-swatch="#647c60" style="--swatch:#647c60" aria-label="Rosa" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#8e6aaf" style="--swatch:#8e6aaf" aria-label="Rojo" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#79a960" style="--swatch:#79a960" aria-label="Naranja" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#6a9751" style="--swatch:#6a9751" aria-label="Amarillo" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#6d8a6d" style="--swatch:#6d8a6d" aria-label="Verde" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#5b8887" style="--swatch:#5b8887" aria-label="Turquesa" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#667ca5" style="--swatch:#667ca5" aria-label="Azul" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#8b6d9b" style="--swatch:#8b6d9b" aria-label="Violeta" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#242128" style="--swatch:#242128" aria-label="Negro" title="Negro" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#797581" style="--swatch:#797581" aria-label="Gris" title="Gris" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#b52d64" style="--swatch:#b52d64" aria-label="Frambuesa" title="Frambuesa" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#e66d64" style="--swatch:#e66d64" aria-label="Coral" title="Coral" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#efaa85" style="--swatch:#efaa85" aria-label="Melocotón" title="Melocotón" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#e4bd31" style="--swatch:#e4bd31" aria-label="Limón" title="Limón" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#468454" style="--swatch:#468454" aria-label="Verde hoja" title="Verde hoja" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#a0cbb6" style="--swatch:#a0cbb6" aria-label="Menta" title="Menta" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#79b6df" style="--swatch:#79b6df" aria-label="Azul cielo" title="Azul cielo" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#29497c" style="--swatch:#29497c" aria-label="Azul marino" title="Azul marino" aria-pressed="false"></button><button type="button" class="board-swatch" data-board-swatch="#b7a0dc" style="--swatch:#b7a0dc" aria-label="Lavanda" title="Lavanda" aria-pressed="false"></button><label>Otro color <input type="color" aria-label="Otro color" data-board-color value="#413849"></label></div></details><label data-board-width-label>Grosor <input type="range" data-board-width min="0.4" max="3" value="1" step="0.1"></label><button type="button" class="action secondary board-icon" data-board-undo disabled aria-label="Deshacer" title="Deshacer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-5 5 5 5m-5-5h10a5 5 0 0 1 0 10h-3"/></svg></button><button type="button" class="action secondary" data-board-clear disabled>Borrar todo</button></div>
 <canvas aria-label="Pizarra libre de esta semana"></canvas>
 <button type="button" class="action secondary weekly-board-resize" data-board-resize title="Arrastra para cambiar la altura de la pizarra" aria-label="Cambiar la altura de la pizarra">↕</button><p class="quiet" role="status" data-board-status></p>
 </section><section class="weekly-day-editor mt-4 print-hide" aria-labelledby="weekly-day-label">
@@ -2774,8 +2777,8 @@ window.addEventListener('pagehide',stop);updateLabel();
  const canvas=board.querySelector('canvas'),ctx=canvas.getContext('2d');
  if(!ctx)return;
  const resizeGrip=board.querySelector('[data-board-resize]'),undo=board.querySelector('[data-board-undo]'),clear=board.querySelector('[data-board-clear]'),status=board.querySelector('[data-board-status]');
- const tools=[...board.querySelectorAll('[data-board-mode]')],color=board.querySelector('[data-board-color]'),sticker=board.querySelector('[data-board-sticker]');
- const colorLabel=board.querySelector('[data-board-color-label]'),stickerLabel=board.querySelector('[data-board-sticker-label]');
+ const tools=[...board.querySelectorAll('[data-board-mode]')],color=board.querySelector('[data-board-color]');
+ const colorLabel=board.querySelector('[data-board-color-label]');
  const swatches=[...colorLabel.querySelectorAll('[data-board-swatch]')];
  const colorDot=board.querySelector('[data-board-color-dot]');
  const width=board.querySelector('[data-board-width]'),widthLabel=board.querySelector('[data-board-width-label]');
@@ -2798,12 +2801,13 @@ window.addEventListener('pagehide',stop);updateLabel();
      const mark=Array.isArray(stored)?{kind:'pen',color:'#413849',points:stored}:stored;
      if(!mark?.points?.length)continue;
      const [[x,y],...rest]=mark.points;
+     const drawingHeight=mark.paperHeight ? mark.paperHeight*scale : canvas.height;
      ctx.save();
      if(mark.kind==='tape'){
        const [endX,endY]=rest.at(-1)||[x,y];
-       const dx=(endX-x)*canvas.width,dy=(endY-y)*canvas.height;
+       const dx=(endX-x)*canvas.width,dy=(endY-y)*drawingHeight;
        const length=Math.max(52*scale,Math.hypot(dx,dy));
-       ctx.translate(x*canvas.width,y*canvas.height);
+       ctx.translate(x*canvas.width,y*drawingHeight);
        ctx.rotate(Math.atan2(dy,dx));
        ctx.fillStyle=mark.color;
        ctx.globalAlpha=0.17;
@@ -2818,7 +2822,7 @@ window.addEventListener('pagehide',stop);updateLabel();
      if(mark.kind==='sticker'){
        ctx.font=Math.round(30*scale)+'px sans-serif';
        ctx.textAlign='center';ctx.textBaseline='middle';
-       ctx.fillText(mark.sticker,x*canvas.width,y*canvas.height);
+       ctx.fillText(mark.sticker,x*canvas.width,y*drawingHeight);
        ctx.restore();
        continue;
      }
@@ -2829,11 +2833,11 @@ window.addEventListener('pagehide',stop);updateLabel();
      ctx.lineCap='round';ctx.lineJoin='round';
      ctx.beginPath();
      if(!rest.length){
-       ctx.arc(x*canvas.width,y*canvas.height,ctx.lineWidth/2,0,Math.PI*2);
+       ctx.arc(x*canvas.width,y*drawingHeight,ctx.lineWidth/2,0,Math.PI*2);
        ctx.fill();
      }else{
-       ctx.moveTo(x*canvas.width,y*canvas.height);
-       for(const [px,py] of rest)ctx.lineTo(px*canvas.width,py*canvas.height);
+       ctx.moveTo(x*canvas.width,y*drawingHeight);
+       for(const [px,py] of rest)ctx.lineTo(px*canvas.width,py*drawingHeight);
        ctx.stroke();
      }
      ctx.restore();
@@ -2870,7 +2874,6 @@ window.addEventListener('pagehide',stop);updateLabel();
    canvas.toggleAttribute('data-drawing',Boolean(mode));
    colorLabel.hidden=!['pen','highlight'].includes(mode);
    widthLabel.hidden=!['pen','highlight','eraser'].includes(mode);
-   stickerLabel.hidden=mode!=='sticker';
    colorLabel.open=false;
    if(mode==='highlight'&&color.value==='#61463f')color.value='#a9813f';
    showColor();
@@ -2882,8 +2885,7 @@ window.addEventListener('pagehide',stop);updateLabel();
  canvas.addEventListener('pointerdown',event=>{
    load();
    if(!mode||pointer!==null||event.button!==0)return;
-   active={kind:mode,color:color.value,sticker:sticker.value,width:Number(width.value),points:[point(event)]};
-   if(active.kind==='sticker'){commit();return;}
+   active={kind:mode,color:color.value,width:Number(width.value),paperHeight:canvas.getBoundingClientRect().height,points:[point(event)]};
    pointer=event.pointerId;canvas.setPointerCapture(pointer);repaint();
  });
  canvas.addEventListener('pointermove',event=>{
@@ -2907,6 +2909,14 @@ window.addEventListener('pagehide',stop);updateLabel();
    setMode(mode===button.dataset.boardMode?'':button.dataset.boardMode);
  };
  function setHeight(value){
+   const paperHeight=canvas.getBoundingClientRect().height;
+   if(!paperHeight)return;
+   const pin=mark=>{
+     if(Array.isArray(mark))return {kind:'pen',color:'#61463f',points:mark,paperHeight};
+     return mark.paperHeight ? mark : {...mark,paperHeight};
+   };
+   strokes=strokes.map(pin);
+   history=history.map(snapshot=>snapshot.map(pin));
    height=Math.min(2000,Math.max(185,Math.round(value)));
    canvas.style.height=height+'px';
  }
